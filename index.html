@@ -3,53 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Text Extractor</title>
+    <title>Spec Deviation Report</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
         }
+
         .container {
-            text-align: center;
-            border: 2px dashed #aaa;
-            padding: 20px;
-            border-radius: 10px;
             background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 400px;
+            margin: 50px auto;
         }
+
         h1 {
-            margin-top: 0;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
         }
-        #file-input {
-            display: none;
+
+        form {
+            display: flex;
+            flex-direction: column;
         }
+
         label {
-            cursor: pointer;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
         }
-        label:hover {
-            background-color: #0056b3;
+
+        input[type="text"], input[type="file"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .error {
+            color: #ff0000;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>PDF Text Extractor</h1>
+        <h1>Upload Files</h1>
         <form action="/" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" id="file-input" accept=".pdf" required>
-            <label for="file-input">Choose PDF File</label>
-            <br>
-            <input type="submit" value="Extract Text">
+            <label for="api_key">API Key:</label>
+            <input type="text" name="api_key" id="api_key" required><br>
+            <label for="requirement_file">Requirement File:</label>
+            <input type="file" name="requirement_file" id="requirement_file" accept=".pdf" required><br>
+            <label for="std_file">STD File:</label>
+            <input type="file" name="std_file" id="std_file" accept=".pdf" required><br>
+            <label for="result_format_file">Result Format File:</label>
+            <input type="file" name="result_format_file" id="result_format_file" accept=".txt" required><br>
+            <input type="submit" value="Process">
         </form>
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
     </div>
 </body>
 </html>
